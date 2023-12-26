@@ -11,8 +11,9 @@ async function index(req, res) {
 
 async function create(req, res) {
   try {
-    let score = await Score.create(req.body)
-    res.json(score)
+    await Score.create(req.body)
+    let allScores = await Score.find({game: req.body.game})
+    res.json(allScores)
   } catch (error) {
     res.status(500).json({err: error.message})
   }
